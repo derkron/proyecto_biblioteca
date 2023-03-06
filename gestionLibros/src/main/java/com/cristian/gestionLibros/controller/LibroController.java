@@ -3,10 +3,7 @@ package com.cristian.gestionLibros.controller;
 import com.cristian.gestionLibros.Servicios.LibroService;
 import com.cristian.gestionLibros.entidades.Libro;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -15,7 +12,7 @@ public class LibroController {
     @Autowired
     LibroService libroService;
 
-    @RequestMapping(value = "/guardar_libro")
+    @PostMapping(value = "/guardar_libro")
     public Libro guardarLibro(@RequestBody Libro libro) {
         return libroService.crearLibro(libro);
     }

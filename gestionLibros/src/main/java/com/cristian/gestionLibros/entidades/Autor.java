@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "/autor")
+@Table(name = "autor")
 public class Autor {
 
 
