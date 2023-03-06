@@ -3,6 +3,7 @@ package com.cristian.gestionLibros.entidades;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "/autor")
@@ -11,14 +12,14 @@ public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+
     private Integer id;
 
-    @Column(nullable = false, length = 20)
+
     private String nombre;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Libro> libro;
+    @ManyToMany(mappedBy = "autores")
+    private Set<Libro> libros;
 
 
     public Integer getId() {
@@ -37,11 +38,11 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public List<Libro> getLibro() {
-        return libro;
+    public Set<Libro> getLibros() {
+        return libros;
     }
 
-    public void setLibro(List<Libro> libro) {
-        this.libro = libro;
+    public void setLibros(Set<Libro> libros) {
+        this.libros = libros;
     }
 }

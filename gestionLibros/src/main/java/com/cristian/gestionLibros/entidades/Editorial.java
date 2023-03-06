@@ -5,16 +5,16 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "editorial")
+
 public class Editorial {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+
     private Integer id;
 
-    @Column(length = 60)
+
     private String nombre;
 
 

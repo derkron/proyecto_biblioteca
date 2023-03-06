@@ -10,17 +10,27 @@ public class InfoAdicional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_info", nullable = false)
     private Integer id;
 
-    @Column(length = 20)
+
     private String idioma;
 
     private Date fechaPublicacion;
 
-    @OneToOne(mappedBy = "InfoAdicional")
+    @OneToOne(mappedBy = "infoAdicional",cascade = CascadeType.ALL,fetch =FetchType.LAZY )
+    @JoinColumn(name ="libro_id")
     private Libro libro;
 
+
+
+
+
+    public InfoAdicional(Integer id, String idioma, Date fechaPublicacion, Libro libro) {
+        this.id = id;
+        this.idioma = idioma;
+        this.fechaPublicacion = fechaPublicacion;
+        this.libro = libro;
+    }
 
     public Integer getId() {
         return id;

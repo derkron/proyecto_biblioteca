@@ -1,38 +1,50 @@
 package com.cristian.gestionLibros.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+
+import java.util.Set;
 
 @Entity
-@Table(name = "libro")
+
 public class Libro {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(nullable = false, length = 20)
+
     private String titulo;
-    @Column(length = 80)
+
     private String descripcion;
 
-    @Column(length = 20)
+
     private String favorito;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @JsonIgnoreProperties({"Libro","hibernateLazyInitializer","handler"})
+    @ManyToOne
     private Categoria categorias;
 
+    @JsonIgnoreProperties({"Libro","hibernateLazyInitializer","handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Editorial editorial;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Libro", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "infoadicional_id")
     private InfoAdicional infoAdicional;
 
-    @ManyToMany(mappedBy = "Libro")
-    private List<Autor> autor;
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "autor_libro",
+        joinColumns ={@JoinColumn(name = "libro_id",referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "autor_id",referencedColumnName = "id")})
+    private Set<Autor> autores=new HashSet<>();
+
+
 
 
     public InfoAdicional getInfoAdicional() {
@@ -91,11 +103,11 @@ public class Libro {
         this.categorias = categorias;
     }
 
-    public List<Autor> getAutor() {
-        return autor;
+    public Set<Autor> getAutores() {
+        return autores;
     }
 
-    public void setAutor(List<Autor> autor) {
-        this.autor = autor;
+    public void setAutores(Set<Autor> autores) {
+        this.autores = autores;
     }
 }

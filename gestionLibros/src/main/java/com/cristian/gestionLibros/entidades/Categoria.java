@@ -3,22 +3,25 @@ package com.cristian.gestionLibros.entidades;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "categoria")
+
 public class Categoria {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+
     private Integer id;
 
-    @Column(nullable = false, length = 60)
+
     private String nombre;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categoria")
-    private List<Libro> libros;
+    @OneToMany( fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+    @JoinColumn(name = "categoria_id")
+    private Set<Libro> libro;
+
 
 
     public Integer getId() {
@@ -37,11 +40,11 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public List<Libro> getLibros() {
-        return libros;
+    public Set<Libro> getLibros() {
+        return libro;
     }
 
-    public void setLibros(List<Libro> libros) {
-        this.libros = libros;
+    public void setLibros(Set<Libro> libros) {
+        this.libro = libros;
     }
 }
