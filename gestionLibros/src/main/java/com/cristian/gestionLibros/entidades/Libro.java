@@ -24,15 +24,17 @@ public class Libro {
     private String favorito;
 
 
-    @JsonIgnoreProperties({"Libro","hibernateLazyInitializer","handler"})
-    @ManyToOne
-    private Categoria categorias;
 
-    @JsonIgnoreProperties({"Libro","hibernateLazyInitializer","handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+
+    @ManyToOne
+    @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "infoadicional_id")
     private InfoAdicional infoAdicional;
 
@@ -44,8 +46,19 @@ public class Libro {
         inverseJoinColumns = {@JoinColumn(name = "autor_id",referencedColumnName = "id")})
     private Set<Autor> autores=new HashSet<>();
 
+    public Libro() {
+    }
 
-
+    public Libro(Integer id, String titulo, String descripcion, String favorito, Categoria categoria, Editorial editorial, InfoAdicional infoAdicional, Set<Autor> autores) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.favorito = favorito;
+        this.categoria = categoria;
+        this.editorial = editorial;
+        this.infoAdicional = infoAdicional;
+        this.autores = autores;
+    }
 
     public InfoAdicional getInfoAdicional() {
         return infoAdicional;
@@ -95,12 +108,12 @@ public class Libro {
         this.favorito = favorito;
     }
 
-    public Categoria getCategorias() {
-        return categorias;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategorias(Categoria categorias) {
-        this.categorias = categorias;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public Set<Autor> getAutores() {

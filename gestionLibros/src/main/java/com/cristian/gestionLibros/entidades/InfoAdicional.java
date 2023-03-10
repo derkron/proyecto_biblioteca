@@ -22,8 +22,8 @@ public class InfoAdicional {
     private Libro libro;
 
 
-
-
+    public InfoAdicional() {
+    }
 
     public InfoAdicional(Integer id, String idioma, Date fechaPublicacion, Libro libro) {
         this.id = id;

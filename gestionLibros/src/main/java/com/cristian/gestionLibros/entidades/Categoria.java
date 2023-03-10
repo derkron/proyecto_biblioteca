@@ -3,7 +3,6 @@ package com.cristian.gestionLibros.entidades;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 
@@ -18,10 +17,17 @@ public class Categoria {
 
     private String nombre;
 
-    @OneToMany( fetch = FetchType.LAZY, cascade =CascadeType.ALL)
-    @JoinColumn(name = "categoria_id")
-    private Set<Libro> libro;
+    @OneToMany( mappedBy = "categoria")
+    private List<Libro> libro;
 
+    public Categoria() {
+    }
+
+    public Categoria(Integer id, String nombre, List<Libro> libro) {
+        this.id = id;
+        this.nombre = nombre;
+        this.libro = libro;
+    }
 
 
     public Integer getId() {
@@ -39,12 +45,13 @@ public class Categoria {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public Set<Libro> getLibros() {
+    public List<Libro> getLibro() {
         return libro;
     }
 
-    public void setLibros(Set<Libro> libros) {
-        this.libro = libros;
+    public void setLibro(List<Libro> libro) {
+        this.libro = libro;
     }
+
+
 }

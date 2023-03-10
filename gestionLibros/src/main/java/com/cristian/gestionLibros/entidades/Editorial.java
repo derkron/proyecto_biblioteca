@@ -11,23 +11,30 @@ public class Editorial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
 
     private String nombre;
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "editorial")
-    private List<Libro> libros;
+    @OneToMany( mappedBy = "editorial")
+    private List<Libro> libro;
 
+    public Editorial() {
+    }
+
+    public Editorial(Integer id, String nombre, List<Libro> libros) {
+        this.id = id;
+        this.nombre = nombre;
+        this.libro = libros;
+    }
 
     public List<Libro> getLibros() {
-        return libros;
+        return libro;
     }
 
     public void setLibros(List<Libro> libros) {
-        this.libros = libros;
+        this.libro = libro;
     }
 
     public Integer getId() {

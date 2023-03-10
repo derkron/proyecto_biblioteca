@@ -1,9 +1,14 @@
 package com.cristian.gestionLibros.controller;
 
 import com.cristian.gestionLibros.Servicios.EditorialService;
+import com.cristian.gestionLibros.entidades.Autor;
 import com.cristian.gestionLibros.entidades.Editorial;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -18,8 +23,18 @@ public class EditorialController {
         return editorialService.crearEditorial(editorial);
     }
 
-    @GetMapping(value = "/obtener_editorial")
-    public Editorial obtenerEditorial(Integer id) {
-        return editorialService.obtenerEditorial(id);
+    @GetMapping("/listar/editoriales")
+    public List<Editorial> listarEditorial(){
+        return editorialService.listarEditorial();
+    }
+    @GetMapping("/obtener/editorial/{id}")
+    public ResponseEntity<Editorial> obtenerEditorial(@PathVariable Integer id){
+        try {
+            Editorial editorial=editorialService.obtenerEditorial(id) ;
+            return new ResponseEntity<Editorial>(editorial, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<Editorial>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }

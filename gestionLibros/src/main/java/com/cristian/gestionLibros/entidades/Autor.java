@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "autor")
+
 public class Autor {
 
 
@@ -19,8 +19,13 @@ public class Autor {
     private String nombre;
 
     @ManyToMany(mappedBy = "autores")
-    private Set<Libro> libros;
+    private Set<Libro> libro;
 
+    public Autor(Integer id, String nombre, Set<Libro> libros) {
+        this.id = id;
+        this.nombre = nombre;
+        this.libro = libros;
+    }
 
     public Integer getId() {
         return id;
@@ -39,10 +44,13 @@ public class Autor {
     }
 
     public Set<Libro> getLibros() {
-        return libros;
+        return libro;
     }
 
     public void setLibros(Set<Libro> libros) {
-        this.libros = libros;
+        this.libro = libro;
+    }
+
+    public Autor() {
     }
 }
